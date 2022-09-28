@@ -5,8 +5,10 @@ const path = process.argv[3];
 
 request(url, (error, response, body) => {
   if (error) {
-    console.log('statusCode:', response && response.statusCode);
     return console.log('connection error:', error);
+  }
+  if (response.statusCode !== 200) {
+    return console.log(response.statusCode, response.statusMessage);
   }
   // console.log('body:', body);
   fs.writeFile(path, body, error => {
